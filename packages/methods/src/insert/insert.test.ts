@@ -305,4 +305,28 @@ describe('insert', () => {
       }
     }
   });
+
+  test('should create child stores before updating items', () => {
+    const store = createTestStore(v.object({ items: v.array(v.string()) }), {
+      initialInput: { items: ['a', 'b'] },
+    });
+
+    const itemsStore = store.children.items;
+    expect(itemsStore.kind).toBe('array');
+    if (itemsStore.kind === 'array') {
+      const writes: [number, number][] = [];
+      let items = itemsStore.items.value;
+      Object.defineProperty(itemsStore.items, 'value', {
+        get: () => items,
+        set: (value: string[]) => {
+          writes.push([value.length, itemsStore.children.length]);
+          items = value;
+        },
+      });
+
+      insert(store, { path: ['items'], initialInput: 'c' });
+
+      expect(writes).toEqual([[3, 3]]);
+    }
+  });
 });

@@ -87,11 +87,6 @@ export function insert<
         internalFormStore.validationId++;
         internalFormStore.isValidating.value = false;
 
-        // Insert new item ID at the specified index
-        const newItems = [...items];
-        newItems.splice(insertIndex, 0, createId());
-        internalArrayStore.items.value = newItems;
-
         // Move all child stores after the insertion point one index up
         for (let index = items.length; index > insertIndex; index--) {
           if (!internalArrayStore.children[index]) {
@@ -131,6 +126,14 @@ export function insert<
             config.initialInput
           );
         }
+
+        // Insert new item ID at the specified index
+        // Hint: This must happen after the child stores are created, because
+        // some frameworks like Qwik do not batch updates, so computed signals
+        // that walk the items would otherwise access a missing child store
+        const newItems = [...items];
+        newItems.splice(insertIndex, 0, createId());
+        internalArrayStore.items.value = newItems;
 
         // Mark array input as present in children
         internalArrayStore.input.value = true;

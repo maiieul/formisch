@@ -61,9 +61,6 @@ export function copyItemState(
         toInternalFieldStore.startItems.value =
           fromInternalFieldStore.startItems.value;
 
-        // Copy current items
-        toInternalFieldStore.items.value = fromItems;
-
         // Copy state for each array item
         for (let index = 0; index < fromItems.length; index++) {
           // If destination child doesn't exist, initialize it
@@ -90,6 +87,12 @@ export function copyItemState(
             toInternalFieldStore.children[index]
           );
         }
+
+        // Copy current items
+        // Hint: This must happen after the child stores are created, because
+        // some frameworks like Qwik do not batch updates, so computed signals
+        // that walk the items would otherwise access a missing child store
+        toInternalFieldStore.items.value = fromItems;
 
         // Otherwise, if both stores are objects, copy object children
       } else if (

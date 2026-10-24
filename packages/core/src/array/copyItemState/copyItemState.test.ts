@@ -168,4 +168,35 @@ describe('copyItemState', () => {
       expect(targetStore.errors.value).toBe(null);
     });
   });
+
+  describe('items order', () => {
+    test('should create child stores before updating items', () => {
+      const store = createTestStore(
+        v.object({ source: v.array(v.string()), target: v.array(v.string()) }),
+        { initialInput: { source: ['a', 'b', 'c'], target: ['x'] } }
+      );
+
+      const sourceStore = store.children.source;
+      const targetStore = store.children.target;
+
+      expect(sourceStore.kind).toBe('array');
+      expect(targetStore.kind).toBe('array');
+
+      if (sourceStore.kind === 'array' && targetStore.kind === 'array') {
+        const writes: [number, number][] = [];
+        let items = targetStore.items.value;
+        Object.defineProperty(targetStore.items, 'value', {
+          get: () => items,
+          set: (value: string[]) => {
+            writes.push([value.length, targetStore.children.length]);
+            items = value;
+          },
+        });
+
+        copyItemState(store, sourceStore, targetStore);
+
+        expect(writes).toEqual([[3, 3]]);
+      }
+    });
+  });
 });

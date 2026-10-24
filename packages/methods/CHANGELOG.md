@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix `insert` to create child stores before updating the items of a field array, so unbatched computed signals never access a missing child store
+
 ## v1.0.1 (September 07, 2026)
 
 - Change `@formisch/core` to v1.0.1

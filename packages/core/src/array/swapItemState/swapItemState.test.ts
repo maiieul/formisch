@@ -267,4 +267,35 @@ describe('swapItemState', () => {
       }
     });
   });
+
+  describe('items order', () => {
+    test('should create child stores before updating items', () => {
+      const store = createTestStore(
+        v.object({ first: v.array(v.string()), second: v.array(v.string()) }),
+        { initialInput: { first: ['a'], second: ['x', 'y', 'z'] } }
+      );
+
+      const firstStore = store.children.first;
+      const secondStore = store.children.second;
+
+      expect(firstStore.kind).toBe('array');
+      expect(secondStore.kind).toBe('array');
+
+      if (firstStore.kind === 'array' && secondStore.kind === 'array') {
+        const writes: [number, number][] = [];
+        let items = firstStore.items.value;
+        Object.defineProperty(firstStore.items, 'value', {
+          get: () => items,
+          set: (value: string[]) => {
+            writes.push([value.length, firstStore.children.length]);
+            items = value;
+          },
+        });
+
+        swapItemState(store, firstStore, secondStore);
+
+        expect(writes).toEqual([[3, 3]]);
+      }
+    });
+  });
 });

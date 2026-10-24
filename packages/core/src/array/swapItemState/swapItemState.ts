@@ -80,10 +80,6 @@ export function swapItemState(
           secondInternalFieldStore.startItems.value;
         secondInternalFieldStore.startItems.value = tempStartItems;
 
-        // Swap current items
-        firstInternalFieldStore.items.value = secondItems;
-        secondInternalFieldStore.items.value = firstItems;
-
         // Calculate maximum length to ensure all children are swapped
         const maxLength = Math.max(firstItems.length, secondItems.length);
 
@@ -130,6 +126,13 @@ export function swapItemState(
             secondInternalFieldStore.children[index]
           );
         }
+
+        // Swap current items
+        // Hint: This must happen after the child stores are created, because
+        // some frameworks like Qwik do not batch updates, so computed signals
+        // that walk the items would otherwise access a missing child store
+        firstInternalFieldStore.items.value = secondItems;
+        secondInternalFieldStore.items.value = firstItems;
 
         // Otherwise, if both stores are objects, swap object children
       } else if (

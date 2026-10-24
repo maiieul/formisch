@@ -93,9 +93,6 @@ export function resetItemState(
             internalFieldStore.startItems.value = newItems;
           }
 
-          // Set current items
-          internalFieldStore.items.value = newItems;
-
           // Reset state for each array item
           for (let index = 0; index < length; index++) {
             // A tuple reset without input (or with nullish input) resets each
@@ -129,6 +126,13 @@ export function resetItemState(
               );
             }
           }
+
+          // Set current items
+          // Hint: This must happen after the child stores are created, because
+          // some frameworks like Qwik do not batch updates, so computed
+          // signals that walk the items would otherwise access a missing child
+          // store
+          internalFieldStore.items.value = newItems;
 
           // Otherwise, clear items arrays
         } else {
