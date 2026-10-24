@@ -976,9 +976,6 @@ importers:
       vite:
         specifier: 8.3.4
         version: 8.3.4(@types/node@24.0.13)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(sass-embedded@1.104.1)(sass@1.104.1)(stylus@0.62.0)(terser@5.51.2)(tsx@4.20.6)(yaml@2.9.1)
-      vite-tsconfig-paths:
-        specifier: ^5.1.4
-        version: 5.1.4(typescript@5.8.3)(vite@8.3.4(@types/node@24.0.13)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(sass-embedded@1.104.1)(sass@1.104.1)(stylus@0.62.0)(terser@5.51.2)(tsx@4.20.6)(yaml@2.9.1))
 
   playgrounds/react:
     dependencies:
@@ -1469,9 +1466,6 @@ importers:
       vite:
         specifier: 8.3.4
         version: 8.3.4(@types/node@22.18.12)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(sass-embedded@1.104.1)(sass@1.104.1)(stylus@0.62.0)(terser@5.51.2)(tsx@4.20.6)(yaml@2.9.1)
-      vite-imagetools:
-        specifier: ^7.0.5
-        version: 7.1.1(@types/node@22.18.12)(rollup@4.59.0)
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.3)(vite@8.3.4(@types/node@22.18.12)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(sass-embedded@1.104.1)(sass@1.104.1)(stylus@0.62.0)(terser@5.51.2)(tsx@4.20.6)(yaml@2.9.1))
@@ -9973,10 +9967,6 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  imagetools-core@7.1.0:
-    resolution: {integrity: sha512-8Aa4NecBBGmTkaAUjcuRYgTPKHCsBEWYmCnvKCL6/bxedehtVVFyZPdXe8DD0Nevd6UWBq85ifUaJ8498lgqNQ==}
-    engines: {node: '>=18.0.0'}
-
   imagetools-core@9.1.0:
     resolution: {integrity: sha512-xQjs+2vrxLnAjCq+omuNkd5UQTld9/bP8+YT0LyYTlKfuSQtgUBvqhUwGugzSAh6sCdN+LnROMuLswn5hZ9Fhg==}
     engines: {node: '>=20.0.0'}
@@ -14002,10 +13992,6 @@ packages:
     engines: {node: '>=22.0.0'}
     peerDependencies:
       vite: 7.3.7
-
-  vite-imagetools@7.1.1:
-    resolution: {integrity: sha512-6Dz0ZD2u1u59dw0ryid4beaDcCNNiTfLXUg6XLxx9n7Qm4BgAAm8TozYUnIH0aT4FDAADZqHsh9ZtISzAs4eKA==}
-    engines: {node: '>=18.0.0'}
 
   vite-plugin-inspect@11.3.3:
     resolution: {integrity: sha512-u2eV5La99oHoYPHE6UvbwgEqKKOQGz86wMg40CCosP6q8BkB6e5xPneZfYagK4ojPJSj5anHCrnvC20DpwVdRA==}
@@ -24390,8 +24376,6 @@ snapshots:
   image-size@0.5.5:
     optional: true
 
-  imagetools-core@7.1.0: {}
-
   imagetools-core@9.1.0: {}
 
   immutable@5.1.9: {}
@@ -29587,15 +29571,6 @@ snapshots:
       imagetools-core: 9.1.0
       sharp: 0.35.5(@types/node@24.0.13)
       vite: 8.3.4(@types/node@24.0.13)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(sass-embedded@1.104.1)(sass@1.104.1)(stylus@0.62.0)(terser@5.51.2)(tsx@4.20.6)(yaml@2.9.1)
-    transitivePeerDependencies:
-      - '@types/node'
-      - rollup
-
-  vite-imagetools@7.1.1(@types/node@22.18.12)(rollup@4.59.0):
-    dependencies:
-      '@rollup/pluginutils': 5.3.0(rollup@4.59.0)
-      imagetools-core: 7.1.0
-      sharp: 0.35.5(@types/node@22.18.12)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
