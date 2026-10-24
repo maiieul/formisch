@@ -35,33 +35,27 @@ export const properties: Record<string, PropertyProps> = {
           key: 'path',
           value: {
             type: 'custom',
-            name: 'Readonly',
+            name: 'ReadonlySignal',
             generics: [
               {
                 type: 'custom',
-                name: 'Signal',
+                name: 'ValidArrayPath',
+                href: '/core/api/ValidArrayPath/',
                 generics: [
                   {
                     type: 'custom',
-                    name: 'ValidArrayPath',
-                    href: '/core/api/ValidArrayPath/',
+                    name: 'v.InferInput',
+                    href: 'https://valibot.dev/api/InferInput/',
                     generics: [
                       {
                         type: 'custom',
-                        name: 'v.InferInput',
-                        href: 'https://valibot.dev/api/InferInput/',
-                        generics: [
-                          {
-                            type: 'custom',
-                            name: 'TSchema',
-                          },
-                        ],
-                      },
-                      {
-                        type: 'custom',
-                        name: 'TFieldArrayPath',
+                        name: 'TSchema',
                       },
                     ],
+                  },
+                  {
+                    type: 'custom',
+                    name: 'TFieldArrayPath',
                   },
                 ],
               },
@@ -72,17 +66,11 @@ export const properties: Record<string, PropertyProps> = {
           key: 'items',
           value: {
             type: 'custom',
-            name: 'Readonly',
+            name: 'ReadonlySignal',
             generics: [
               {
-                type: 'custom',
-                name: 'Signal',
-                generics: [
-                  {
-                    type: 'array',
-                    item: 'string',
-                  },
-                ],
+                type: 'array',
+                item: 'string',
               },
             ],
           },
@@ -91,29 +79,23 @@ export const properties: Record<string, PropertyProps> = {
           key: 'errors',
           value: {
             type: 'custom',
-            name: 'Readonly',
+            name: 'ReadonlySignal',
             generics: [
               {
-                type: 'custom',
-                name: 'Signal',
-                generics: [
+                type: 'union',
+                options: [
                   {
-                    type: 'union',
-                    options: [
+                    type: 'tuple',
+                    items: [
+                      'string',
                       {
-                        type: 'tuple',
-                        items: [
-                          'string',
-                          {
-                            type: 'array',
-                            spread: true,
-                            item: 'string',
-                          },
-                        ],
+                        type: 'array',
+                        spread: true,
+                        item: 'string',
                       },
-                      'null',
                     ],
                   },
+                  'null',
                 ],
               },
             ],
@@ -123,10 +105,8 @@ export const properties: Record<string, PropertyProps> = {
           key: 'isTouched',
           value: {
             type: 'custom',
-            name: 'Readonly',
-            generics: [
-              { type: 'custom', name: 'Signal', generics: ['boolean'] },
-            ],
+            name: 'ReadonlySignal',
+            generics: ['boolean'],
           },
         },
         {
@@ -141,20 +121,16 @@ export const properties: Record<string, PropertyProps> = {
           key: 'isDirty',
           value: {
             type: 'custom',
-            name: 'Readonly',
-            generics: [
-              { type: 'custom', name: 'Signal', generics: ['boolean'] },
-            ],
+            name: 'ReadonlySignal',
+            generics: ['boolean'],
           },
         },
         {
           key: 'isValid',
           value: {
             type: 'custom',
-            name: 'Readonly',
-            generics: [
-              { type: 'custom', name: 'Signal', generics: ['boolean'] },
-            ],
+            name: 'ReadonlySignal',
+            generics: ['boolean'],
           },
         },
       ],
@@ -163,33 +139,27 @@ export const properties: Record<string, PropertyProps> = {
   path: {
     type: {
       type: 'custom',
-      name: 'Readonly',
+      name: 'ReadonlySignal',
       generics: [
         {
           type: 'custom',
-          name: 'Signal',
+          name: 'ValidArrayPath',
+          href: '/core/api/ValidArrayPath/',
           generics: [
             {
               type: 'custom',
-              name: 'ValidArrayPath',
-              href: '/core/api/ValidArrayPath/',
+              name: 'v.InferInput',
+              href: 'https://valibot.dev/api/InferInput/',
               generics: [
                 {
                   type: 'custom',
-                  name: 'v.InferInput',
-                  href: 'https://valibot.dev/api/InferInput/',
-                  generics: [
-                    {
-                      type: 'custom',
-                      name: 'TSchema',
-                    },
-                  ],
-                },
-                {
-                  type: 'custom',
-                  name: 'TFieldArrayPath',
+                  name: 'TSchema',
                 },
               ],
+            },
+            {
+              type: 'custom',
+              name: 'TFieldArrayPath',
             },
           ],
         },
@@ -199,17 +169,11 @@ export const properties: Record<string, PropertyProps> = {
   items: {
     type: {
       type: 'custom',
-      name: 'Readonly',
+      name: 'ReadonlySignal',
       generics: [
         {
-          type: 'custom',
-          name: 'Signal',
-          generics: [
-            {
-              type: 'array',
-              item: 'string',
-            },
-          ],
+          type: 'array',
+          item: 'string',
         },
       ],
     },
@@ -217,29 +181,23 @@ export const properties: Record<string, PropertyProps> = {
   errors: {
     type: {
       type: 'custom',
-      name: 'Readonly',
+      name: 'ReadonlySignal',
       generics: [
         {
-          type: 'custom',
-          name: 'Signal',
-          generics: [
+          type: 'union',
+          options: [
             {
-              type: 'union',
-              options: [
+              type: 'tuple',
+              items: [
+                'string',
                 {
-                  type: 'tuple',
-                  items: [
-                    'string',
-                    {
-                      type: 'array',
-                      spread: true,
-                      item: 'string',
-                    },
-                  ],
+                  type: 'array',
+                  spread: true,
+                  item: 'string',
                 },
-                'null',
               ],
             },
+            'null',
           ],
         },
       ],
@@ -248,8 +206,8 @@ export const properties: Record<string, PropertyProps> = {
   isTouched: {
     type: {
       type: 'custom',
-      name: 'Readonly',
-      generics: [{ type: 'custom', name: 'Signal', generics: ['boolean'] }],
+      name: 'ReadonlySignal',
+      generics: ['boolean'],
     },
   },
   isEdited: {
@@ -262,15 +220,15 @@ export const properties: Record<string, PropertyProps> = {
   isDirty: {
     type: {
       type: 'custom',
-      name: 'Readonly',
-      generics: [{ type: 'custom', name: 'Signal', generics: ['boolean'] }],
+      name: 'ReadonlySignal',
+      generics: ['boolean'],
     },
   },
   isValid: {
     type: {
       type: 'custom',
-      name: 'Readonly',
-      generics: [{ type: 'custom', name: 'Signal', generics: ['boolean'] }],
+      name: 'ReadonlySignal',
+      generics: ['boolean'],
     },
   },
 };

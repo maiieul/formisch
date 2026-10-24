@@ -35,16 +35,48 @@ export const properties: Record<string, PropertyProps> = {
           key: 'path',
           value: {
             type: 'custom',
-            name: 'Readonly',
+            name: 'ReadonlySignal',
             generics: [
               {
                 type: 'custom',
-                name: 'Signal',
+                name: 'ValidPath',
+                href: '/core/api/ValidPath/',
                 generics: [
                   {
                     type: 'custom',
-                    name: 'ValidPath',
-                    href: '/core/api/ValidPath/',
+                    name: 'v.InferInput',
+                    href: 'https://valibot.dev/api/InferInput/',
+                    generics: [
+                      {
+                        type: 'custom',
+                        name: 'TSchema',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'custom',
+                    name: 'TFieldPath',
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          key: 'input',
+          value: {
+            type: 'custom',
+            name: 'ReadonlySignal',
+            generics: [
+              {
+                type: 'custom',
+                name: 'PartialValues',
+                href: '/core/api/PartialValues/',
+                generics: [
+                  {
+                    type: 'custom',
+                    name: 'PathValue',
+                    href: '/core/api/PathValue/',
                     generics: [
                       {
                         type: 'custom',
@@ -69,76 +101,26 @@ export const properties: Record<string, PropertyProps> = {
           },
         },
         {
-          key: 'input',
-          value: {
-            type: 'custom',
-            name: 'Readonly',
-            generics: [
-              {
-                type: 'custom',
-                name: 'Signal',
-                generics: [
-                  {
-                    type: 'custom',
-                    name: 'PartialValues',
-                    href: '/core/api/PartialValues/',
-                    generics: [
-                      {
-                        type: 'custom',
-                        name: 'PathValue',
-                        href: '/core/api/PathValue/',
-                        generics: [
-                          {
-                            type: 'custom',
-                            name: 'v.InferInput',
-                            href: 'https://valibot.dev/api/InferInput/',
-                            generics: [
-                              {
-                                type: 'custom',
-                                name: 'TSchema',
-                              },
-                            ],
-                          },
-                          {
-                            type: 'custom',
-                            name: 'TFieldPath',
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        },
-        {
           key: 'errors',
           value: {
             type: 'custom',
-            name: 'Readonly',
+            name: 'ReadonlySignal',
             generics: [
               {
-                type: 'custom',
-                name: 'Signal',
-                generics: [
+                type: 'union',
+                options: [
                   {
-                    type: 'union',
-                    options: [
+                    type: 'tuple',
+                    items: [
+                      'string',
                       {
-                        type: 'tuple',
-                        items: [
-                          'string',
-                          {
-                            type: 'array',
-                            spread: true,
-                            item: 'string',
-                          },
-                        ],
+                        type: 'array',
+                        spread: true,
+                        item: 'string',
                       },
-                      'null',
                     ],
                   },
+                  'null',
                 ],
               },
             ],
@@ -148,10 +130,8 @@ export const properties: Record<string, PropertyProps> = {
           key: 'isTouched',
           value: {
             type: 'custom',
-            name: 'Readonly',
-            generics: [
-              { type: 'custom', name: 'Signal', generics: ['boolean'] },
-            ],
+            name: 'ReadonlySignal',
+            generics: ['boolean'],
           },
         },
         {
@@ -166,20 +146,16 @@ export const properties: Record<string, PropertyProps> = {
           key: 'isDirty',
           value: {
             type: 'custom',
-            name: 'Readonly',
-            generics: [
-              { type: 'custom', name: 'Signal', generics: ['boolean'] },
-            ],
+            name: 'ReadonlySignal',
+            generics: ['boolean'],
           },
         },
         {
           key: 'isValid',
           value: {
             type: 'custom',
-            name: 'Readonly',
-            generics: [
-              { type: 'custom', name: 'Signal', generics: ['boolean'] },
-            ],
+            name: 'ReadonlySignal',
+            generics: ['boolean'],
           },
         },
         {
@@ -243,16 +219,47 @@ export const properties: Record<string, PropertyProps> = {
   path: {
     type: {
       type: 'custom',
-      name: 'Readonly',
+      name: 'ReadonlySignal',
       generics: [
         {
           type: 'custom',
-          name: 'Signal',
+          name: 'ValidPath',
+          href: '/core/api/ValidPath/',
           generics: [
             {
               type: 'custom',
-              name: 'ValidPath',
-              href: '/core/api/ValidPath/',
+              name: 'v.InferInput',
+              href: 'https://valibot.dev/api/InferInput/',
+              generics: [
+                {
+                  type: 'custom',
+                  name: 'TSchema',
+                },
+              ],
+            },
+            {
+              type: 'custom',
+              name: 'TFieldPath',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  input: {
+    type: {
+      type: 'custom',
+      name: 'ReadonlySignal',
+      generics: [
+        {
+          type: 'custom',
+          name: 'PartialValues',
+          href: '/core/api/PartialValues/',
+          generics: [
+            {
+              type: 'custom',
+              name: 'PathValue',
+              href: '/core/api/PathValue/',
               generics: [
                 {
                   type: 'custom',
@@ -276,75 +283,26 @@ export const properties: Record<string, PropertyProps> = {
       ],
     },
   },
-  input: {
-    type: {
-      type: 'custom',
-      name: 'Readonly',
-      generics: [
-        {
-          type: 'custom',
-          name: 'Signal',
-          generics: [
-            {
-              type: 'custom',
-              name: 'PartialValues',
-              href: '/core/api/PartialValues/',
-              generics: [
-                {
-                  type: 'custom',
-                  name: 'PathValue',
-                  href: '/core/api/PathValue/',
-                  generics: [
-                    {
-                      type: 'custom',
-                      name: 'v.InferInput',
-                      href: 'https://valibot.dev/api/InferInput/',
-                      generics: [
-                        {
-                          type: 'custom',
-                          name: 'TSchema',
-                        },
-                      ],
-                    },
-                    {
-                      type: 'custom',
-                      name: 'TFieldPath',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  },
   errors: {
     type: {
       type: 'custom',
-      name: 'Readonly',
+      name: 'ReadonlySignal',
       generics: [
         {
-          type: 'custom',
-          name: 'Signal',
-          generics: [
+          type: 'union',
+          options: [
             {
-              type: 'union',
-              options: [
+              type: 'tuple',
+              items: [
+                'string',
                 {
-                  type: 'tuple',
-                  items: [
-                    'string',
-                    {
-                      type: 'array',
-                      spread: true,
-                      item: 'string',
-                    },
-                  ],
+                  type: 'array',
+                  spread: true,
+                  item: 'string',
                 },
-                'null',
               ],
             },
+            'null',
           ],
         },
       ],
@@ -353,8 +311,8 @@ export const properties: Record<string, PropertyProps> = {
   isTouched: {
     type: {
       type: 'custom',
-      name: 'Readonly',
-      generics: [{ type: 'custom', name: 'Signal', generics: ['boolean'] }],
+      name: 'ReadonlySignal',
+      generics: ['boolean'],
     },
   },
   isEdited: {
@@ -367,15 +325,15 @@ export const properties: Record<string, PropertyProps> = {
   isDirty: {
     type: {
       type: 'custom',
-      name: 'Readonly',
-      generics: [{ type: 'custom', name: 'Signal', generics: ['boolean'] }],
+      name: 'ReadonlySignal',
+      generics: ['boolean'],
     },
   },
   isValid: {
     type: {
       type: 'custom',
-      name: 'Readonly',
-      generics: [{ type: 'custom', name: 'Signal', generics: ['boolean'] }],
+      name: 'ReadonlySignal',
+      generics: ['boolean'],
     },
   },
   onInput: {
