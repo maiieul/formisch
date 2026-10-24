@@ -6,7 +6,7 @@ import {
 } from '@qwik.dev/core';
 import { type ContentMenu, useLocation } from '@qwik.dev/router';
 import clsx from 'clsx';
-import { useMenu } from '~/routes/plugin@menu';
+import { useMenu } from '~/hooks';
 import { FrameworkPicker } from './FrameworkPicker';
 import { Link } from './Link';
 

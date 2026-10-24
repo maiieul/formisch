@@ -12,6 +12,7 @@ import {
   useLocation,
 } from '@qwik.dev/router';
 import clsx from 'clsx';
+import { useMenu } from '~/hooks';
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -21,7 +22,6 @@ import {
   PenIcon,
 } from '~/icons';
 import { useChapters, useChaptersToggle } from '~/routes/plugin@chapters';
-import { useMenu } from '~/routes/plugin@menu';
 import { trackEvent } from '~/utils';
 import { Chapters } from './Chapters';
 import { Credits } from './Credits';

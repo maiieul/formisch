@@ -5,7 +5,7 @@ import {
   useOnDocument,
   useSignal,
 } from '@qwik.dev/core';
-import { useLocation } from '@qwik.dev/router';
+import { type ContentMenu, useLocation } from '@qwik.dev/router';
 import clsx from 'clsx';
 import { useFocusTrap } from '~/hooks';
 import { AngleUpIcon } from '~/icons';
@@ -17,8 +17,25 @@ import {
   useFramework,
   useSetFramework,
 } from '~/routes/plugin@framework';
-import { useOtherMenuHrefs } from '~/routes/plugin@menu';
 import { Link } from './Link';
+
+const MENUS = import.meta.glob<ContentMenu>('../routes/**/menu.md', {
+  eager: true,
+  import: 'default',
+});
+
+/**
+ * Returns all hrefs of the menu of a framework's docs area.
+ */
+function getMenuHrefs(framework: Framework, area: string): string[] {
+  const menu = Object.entries(MENUS).find(([path]) =>
+    path.includes(`/${framework}/${area}/`)
+  )?.[1];
+  return (menu?.items ?? [])
+    .flatMap((item) => item.items ?? [])
+    .map((item) => item.href)
+    .filter((href): href is string => href !== undefined);
+}
 
 type FrameworkPickerProps = {
   class?: string;
@@ -30,7 +47,6 @@ type FrameworkPickerProps = {
 export const FrameworkPicker = component$<FrameworkPickerProps>((props) => {
   // Use location and framework
   const location = useLocation();
-  const otherMenuHrefs = useOtherMenuHrefs();
   const framework = useFramework();
   const setFramework = useSetFramework();
 
@@ -64,13 +80,13 @@ export const FrameworkPicker = component$<FrameworkPickerProps>((props) => {
       `/${targetFramework}/`
     );
 
-    // If path exists in other menus, return it
-    if (otherMenuHrefs.value.includes(newPathname)) {
+    // If path exists in menu of target framework, return it
+    const pathList = location.url.pathname.split('/');
+    if (getMenuHrefs(targetFramework, pathList[2]).includes(newPathname)) {
       return newPathname;
     }
 
     // Otherwise, return base path for framework
-    const pathList = location.url.pathname.split('/');
     return `/${targetFramework}/${pathList[2]}`;
   };
 

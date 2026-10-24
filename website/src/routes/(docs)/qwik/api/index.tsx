@@ -1,7 +1,7 @@
 import { component$, Fragment } from '@qwik.dev/core';
 import { type DocumentHead } from '@qwik.dev/router';
 import { ApiList } from '~/components';
-import { useMenu } from '~/routes/plugin@menu';
+import { useMenu } from '~/hooks';
 
 export const head: DocumentHead = {
   title: 'API reference',

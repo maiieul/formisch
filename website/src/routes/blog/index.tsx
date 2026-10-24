@@ -35,58 +35,64 @@ interface PostSection {
 
 /**
  * Loads the required data for each blog post.
+ *
+ * Note: The cache control `immutable` lets SSG write the loader data to a
+ * file, which is required for client navigation on the static website.
  */
-export const usePosts = routeLoader$(async () => {
-  // Dynamically import all blog post metadata from the file system
-  const posts: PostData[] = (
-    await Promise.all(
-      Object.entries(
-        import.meta.glob<DocumentHeadValue<PostFrontmatter>>('./**/index.mdx')
-      ).map(async ([path, readFile]) => {
-        const { frontmatter } = await readFile();
-        return {
-          cover: frontmatter!.cover,
-          title: frontmatter!.title,
-          published: frontmatter!.published,
-          authors: frontmatter!.authors,
-          href: `./${path.split('/').slice(2, 3)[0]}/`,
-        };
-      })
-    )
-  ).sort((a, b) => (a.published < b.published ? 1 : -1));
+export const usePosts = routeLoader$(
+  async () => {
+    // Dynamically import all blog post metadata from the file system
+    const posts: PostData[] = (
+      await Promise.all(
+        Object.entries(
+          import.meta.glob<DocumentHeadValue<PostFrontmatter>>('./**/index.mdx')
+        ).map(async ([path, readFile]) => {
+          const { frontmatter } = await readFile();
+          return {
+            cover: frontmatter!.cover,
+            title: frontmatter!.title,
+            published: frontmatter!.published,
+            authors: frontmatter!.authors,
+            href: `./${path.split('/').slice(2, 3)[0]}/`,
+          };
+        })
+      )
+    ).sort((a, b) => (a.published < b.published ? 1 : -1));
 
-  // Create variables for latest posts and posts by year
-  const latestCutoff = new Date(Date.now() - 7776000000);
-  const latestPosts: PostData[] = [];
-  const postsByYear: Record<string, PostData[]> = {};
+    // Create variables for latest posts and posts by year
+    const latestCutoff = new Date(Date.now() - 7776000000);
+    const latestPosts: PostData[] = [];
+    const postsByYear: Record<string, PostData[]> = {};
 
-  // Add posts to latest or by year based on published date
-  for (const post of posts) {
-    if (new Date(post.published) >= latestCutoff) {
-      latestPosts.push(post);
-    } else {
-      const year = post.published.slice(0, 4);
-      const yearPosts = postsByYear[year] ?? (postsByYear[year] = []);
-      yearPosts.push(post);
+    // Add posts to latest or by year based on published date
+    for (const post of posts) {
+      if (new Date(post.published) >= latestCutoff) {
+        latestPosts.push(post);
+      } else {
+        const year = post.published.slice(0, 4);
+        const yearPosts = postsByYear[year] ?? (postsByYear[year] = []);
+        yearPosts.push(post);
+      }
     }
-  }
 
-  // Convert posts by year into a post sections array
-  const postSections: PostSection[] = Object.entries(postsByYear)
-    .sort(([yearA], [yearB]) => (yearA < yearB ? 1 : -1))
-    .map(([year, posts]) => ({
-      heading: `Posts of ${year}`,
-      posts,
-    }));
+    // Convert posts by year into a post sections array
+    const postSections: PostSection[] = Object.entries(postsByYear)
+      .sort(([yearA], [yearB]) => (yearA < yearB ? 1 : -1))
+      .map(([year, posts]) => ({
+        heading: `Posts of ${year}`,
+        posts,
+      }));
 
-  // Add latest posts section to beginning if there are any
-  if (latestPosts.length > 0) {
-    postSections.unshift({ heading: 'Recent posts', posts: latestPosts });
-  }
+    // Add latest posts section to beginning if there are any
+    if (latestPosts.length > 0) {
+      postSections.unshift({ heading: 'Recent posts', posts: latestPosts });
+    }
 
-  // Return final post sections array
-  return postSections;
-});
+    // Return final post sections array
+    return postSections;
+  },
+  { cacheControl: 'immutable' }
+);
 
 export default component$(() => {
   const posts = usePosts();

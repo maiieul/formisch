@@ -7,7 +7,7 @@ import {
 } from '@qwik.dev/core';
 import { useContent } from '@qwik.dev/router';
 import clsx from 'clsx';
-import { useMenu } from '~/routes/plugin@menu';
+import { useMenu } from '~/hooks';
 
 /**
  * Navigation list used to display the current page's content structure.
